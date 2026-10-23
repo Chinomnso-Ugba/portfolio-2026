@@ -52,7 +52,7 @@ My personal portfolio site: a short introduction, selected projects, my experien
 ├── assets/
 │   ├── favicon.svg
 │   ├── *.webp          project screenshots (desktop and mobile)
-│   ├── portrait.jpg    my photo (add this)
+│   ├── portrait.jpg    my photo (to be added)
 │   └── Chinomnso-Ugba-CV.pdf
 ├── screenshots/        images used in this README
 ├── LICENSE
