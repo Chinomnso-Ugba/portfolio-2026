@@ -6,12 +6,27 @@
   <title>Chinomnso Ugba | Front-end developer</title>
   <meta name="description" content="Chinomnso Ugba is a front-end developer based in Anambra, Nigeria, open to remote work.">
   <meta name="theme-color" content="#f5f5f7">
+  <meta name="color-scheme" content="light dark">
+  <!-- Sets the theme before the page paints, so there is no flash -->
+  <script>
+    (function () {
+      var saved;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chinomnso Ugba | Front-end developer">
+  <meta property="og:description" content="Front-end developer based in Anambra, Nigeria, open to remote work.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -21,16 +36,25 @@
       <!-- Placeholder logo: replace the text with your real logo later -->
       <a class="logo" href="#top" aria-label="Nonso, back to top">Nonso<span class="logo-dot" aria-hidden="true"></span></a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-
       <nav id="site-nav" class="site-nav" aria-label="Main">
         <ul class="nav-list">
           <li><a href="#work">Work</a></li>
+          <li><a href="#experience">Experience</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a class="nav-cv" href="assets/Chinomnso-Ugba-CV.pdf" download>Download CV</a></li>
         </ul>
       </nav>
+
+      <div class="header-tools">
+        <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+          <span class="theme-knob" aria-hidden="true">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </span>
+        </button>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      </div>
     </div>
   </header>
 
@@ -53,7 +77,7 @@
 
         <div class="hero-lower">
           <p class="hero-intro">
-            I turn designs into clean, responsive websites. Three years of building for small startups taught me to keep things simple and ship carefully.
+            I turn designs into clean, responsive websites. I've mentored new developers, taught programming to students of different ages, and I'm looking for a junior front-end role.
           </p>
           <div class="hero-actions">
             <a class="btn btn-solid" href="#work">See my work</a>
@@ -68,29 +92,28 @@
       <div class="wrap">
         <div class="section-head">
           <h2 id="work-title">Selected work</h2>
-          <p>A few things I've built. Each one links to the live site and the code.</p>
+          <p>Small, practical web apps built with plain HTML, CSS and JavaScript.</p>
         </div>
 
         <ul class="projects">
           <li class="project">
             <div class="shot">
               <div class="browser">
-                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-                <div class="browser-body" aria-hidden="true"><span class="bar bar--lg"></span><span class="bar"></span><span class="bar bar--sm"></span></div>
-                <!-- Add a screenshot as assets/shortly.png (16:10 works best) -->
-                <img src="assets/shortly.png" alt="Screenshot of the Shortly landing page" onerror="this.remove()">
+                <img src="assets/powerplanner.webp" alt="PowerPlanner on desktop, with an appliance form on the left and energy and cost results on the right" width="1315" height="727" loading="lazy" onerror="this.remove()">
+              </div>
+              <div class="phone">
+                <img src="assets/powerplanner-mobile.webp" alt="PowerPlanner on a phone, with the appliance form stacked above the results" width="640" height="1391" loading="lazy" onerror="this.remove()">
               </div>
             </div>
             <div class="project-body">
-              <h3>Shortly</h3>
+              <h3>PowerPlanner</h3>
               <div class="project-info">
-                <p>A landing page for a link-shortening service, built from a Frontend Mentor design.</p>
-                <!-- TODO: edit the tags to match what you actually used -->
+                <p>A mobile-first app for tracking household electricity costs. Add appliances with their wattage and daily use to see energy use and cost in naira, with daily, monthly and yearly views and a light and dark mode.</p>
                 <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
               </div>
               <p class="project-links">
-                <a href="#" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
-                <a href="#" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
+                <a href="https://power-manager-one.vercel.app/" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Chinomnso-Ugba/Power-Manager" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
               </p>
             </div>
           </li>
@@ -98,21 +121,43 @@
           <li class="project">
             <div class="shot">
               <div class="browser">
-                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-                <div class="browser-body" aria-hidden="true"><span class="bar bar--lg"></span><span class="bar"></span><span class="bar bar--sm"></span></div>
-                <!-- Add a screenshot as assets/room.png -->
-                <img src="assets/room.png" alt="Screenshot of the Room homepage" onerror="this.remove()">
+                <img src="assets/weather.webp" alt="Weather App on desktop showing the weather in Lagos with a temperature, conditions, humidity and recent searches" width="1315" height="727" loading="lazy" onerror="this.remove()">
+              </div>
+              <div class="phone">
+                <img src="assets/weather-mobile.webp" alt="Weather App on a phone showing the weather in Lagos" width="640" height="1391" loading="lazy" onerror="this.remove()">
               </div>
             </div>
             <div class="project-body">
-              <h3>Room</h3>
+              <h3>Weather App</h3>
               <div class="project-info">
-                <p>A responsive homepage for a furniture brand, with a hero slider, built from a Frontend Mentor design.</p>
+                <p>An early project built around a third-party weather API. Search any city for its temperature, conditions and humidity, switch between °C and °F, revisit recent searches and use dark mode.</p>
                 <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
               </div>
               <p class="project-links">
-                <a href="#" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
-                <a href="#" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
+                <a href="https://chinomnso-ugba.github.io/Weather-App/" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Chinomnso-Ugba/Weather-App" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
+              </p>
+            </div>
+          </li>
+
+          <li class="project">
+            <div class="shot">
+              <div class="browser">
+                <img src="assets/keyflow.webp" alt="KeyFlow typing test on desktop with a start button and a prompt to begin typing" width="1315" height="727" loading="lazy" onerror="this.remove()">
+              </div>
+              <div class="phone">
+                <img src="assets/keyflow-mobile.webp" alt="KeyFlow typing test on a phone" width="640" height="1391" loading="lazy" onerror="this.remove()">
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>KeyFlow</h3>
+              <div class="project-info">
+                <p>A typing speed test built around keyboard input events, with a start button, a sound toggle and a dark mode.</p>
+                <ul class="tags"><li>JavaScript</li></ul>
+              </div>
+              <p class="project-links">
+                <a href="https://chinomnso-ugba.github.io/Typing-Speed-App/" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Chinomnso-Ugba/Typing-Speed-App" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
               </p>
             </div>
           </li>
@@ -122,9 +167,10 @@
           <li class="project">
             <div class="shot">
               <div class="browser">
-                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-                <div class="browser-body" aria-hidden="true"><span class="bar bar--lg"></span><span class="bar"></span><span class="bar bar--sm"></span></div>
-                <img src="assets/PROJECT.png" alt="Screenshot of PROJECT" onerror="this.remove()">
+                <img src="assets/PROJECT.webp" alt="PROJECT on desktop" width="1315" height="727" loading="lazy" onerror="this.remove()">
+              </div>
+              <div class="phone">
+                <img src="assets/PROJECT-mobile.webp" alt="PROJECT on a phone" width="640" height="1391" loading="lazy" onerror="this.remove()">
               </div>
             </div>
             <div class="project-body">
@@ -144,6 +190,91 @@
       </div>
     </section>
 
+    <!-- Experience -->
+    <section class="section section--experience" id="experience" aria-labelledby="experience-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="experience-title">Experience</h2>
+          <p>Front-end work, mentoring and teaching.</p>
+        </div>
+
+        <ul class="jobs">
+          <li class="job">
+            <p class="job-dates">Jan 2026 to present</p>
+            <div class="job-main">
+              <h3>Computer and Digital Technology Teacher</h3>
+              <p class="job-org">St. Anthony's Catholic Comprehensive Institute, Agulu</p>
+              <ul class="job-points">
+                <li>Teach Computer Studies and Digital Technology to secondary school students through structured lessons and practical examples.</li>
+                <li>Prepare lesson notes, activities and assessments suited to each class's level.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="job">
+            <p class="job-dates">Oct 2025 to Apr 2026</p>
+            <div class="job-main">
+              <h3>Private Scratch Programming Tutor</h3>
+              <p class="job-org">Independent</p>
+              <ul class="job-points">
+                <li>Taught programming fundamentals to a young learner over about six months, covering events, loops, conditionals and variables.</li>
+                <li>Guided them to build interactive games with keyboard controls, scoring and timers, and to experiment on their own.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="job">
+            <p class="job-dates">Sep 2025</p>
+            <div class="job-main">
+              <h3>Frontend Developer</h3>
+              <!-- TODO: add the hackathon and project names once verified -->
+              <p class="job-org">Collaborative Web3 hackathon project</p>
+              <ul class="job-points">
+                <li>Worked in a team of about six on a token-based agriculture investment concept.</li>
+                <li>Built frontend pages explaining the investment idea and the token to users.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="job">
+            <p class="job-dates">Jul 2025</p>
+            <div class="job-main">
+              <h3>Freelance Frontend Developer</h3>
+              <p class="job-org">Independent client project</p>
+              <ul class="job-points">
+                <li>Built a three-page website for a client using HTML, CSS and JavaScript, with CSS Grid for the layouts.</li>
+                <li>Delivered the site within the scope of the client's assignment.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="job">
+            <p class="job-dates">May 2024 to Oct 2024</p>
+            <div class="job-main">
+              <h3>Frontend Development Mentor</h3>
+              <p class="job-org">Intern training, SecureCodes Software</p>
+              <ul class="job-points">
+                <li>Guided two interns through separate six-week training periods, teaching HTML, CSS and JavaScript with an introduction to React and Tailwind CSS.</li>
+                <li>Supported them as they moved from the basics to small projects such as portfolio sites and news layouts.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="job">
+            <p class="job-dates">Mar 2023 to Feb 2025</p>
+            <div class="job-main">
+              <h3>Frontend Development Intern</h3>
+              <p class="job-org">SecureCodes Software, Awka</p>
+              <ul class="job-points">
+                <li>Supported operations and administration at a company that builds school portal systems.</li>
+                <li>Organised school-related information and contributed to a few programming tasks.</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- About -->
     <section class="section section--about" id="about" aria-labelledby="about-title">
       <div class="wrap about-grid">
@@ -159,35 +290,43 @@
         <div class="about-content">
           <h2 id="about-title">About me</h2>
           <div class="about-text">
+            <!-- Edited from the dictated draft. See the notes in the chat about the lines marked TODO. -->
             <p>
-              I'm a computer engineering graduate who has loved computers for as long as I can remember. Studying engineering was the natural next step, and coding is what stuck.
+              I've loved computers for as long as I can remember. I studied Electronics and Computer Engineering at UNIZIK, but it was beautiful, interactive websites that made me want to build my own, and that's how I got into front-end development.
             </p>
             <p>
-              For the past three years I've worked as a developer with small startups near me, including Securecodes Software in Awka, and I've taught myself more with every project. These days I focus on the front end: turning designs into clean, responsive interfaces.
+              I've built personal projects like PowerPlanner and a website for a freelance client, and I interned at SecureCodes Software in Awka, where I later mentored two interns. Since January 2026 I've also taught Computer Studies and Digital Technology to secondary school students, from JS1 to SS3. It's outside coding, but it gives me hands-on experience and sharpens my wider computer skills. I keep building on the side and growing my front-end skills with React, Tailwind CSS and GSAP.
             </p>
-            <p>I'm based in Anambra and open to remote roles.</p>
+            <!-- TODO: add "and on-site roles in Lagos" here if you confirm that -->
+            <p>
+              I'm looking for a front-end role, ideally remote, where I can keep learning to build better interactive sites. Part-time, full-time and contract roles all work for me.
+            </p>
+            <p>
+              Away from the screen, I play chess, read mostly non-fiction, game a bit and listen to a lot of hip-hop and rock.
+            </p>
           </div>
 
           <div class="about-lists">
             <div class="about-block">
-              <h3>Experience</h3>
-              <!-- TODO: add your roles and dates here -->
+              <h3>Comfortable with</h3>
               <ul class="plain-list">
-                <li><strong>Securecodes Software</strong>Awka</li>
-                <li><strong>Small startups</strong>Software development, Anambra</li>
+                <li>HTML</li>
+                <li>CSS and CSS Grid</li>
+                <li>JavaScript</li>
+                <li>Responsive design</li>
+                <li>Git and GitHub</li>
+                <li>React</li>
+                <li>Tailwind CSS</li>
               </ul>
             </div>
 
             <div class="about-block">
-              <h3>Skills</h3>
-              <!-- TODO: add or remove skills so this matches what you can talk about in an interview -->
+              <h3>Still learning</h3>
               <ul class="plain-list">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Responsive design</li>
-                <li>Git and GitHub</li>
-                <li>Accessibility basics</li>
+                <li>GSAP</li>
+                <li>TypeScript</li>
+                <li>Next.js</li>
+                
               </ul>
             </div>
           </div>
@@ -199,7 +338,7 @@
     <section class="section section--contact" id="contact" aria-labelledby="contact-title">
       <div class="wrap">
         <h2 id="contact-title">Get in touch</h2>
-        <p class="contact-lead">I'm open to remote front-end roles. Email is the quickest way to reach me.</p>
+        <p class="contact-lead">I'm open to remote front-end roles. Email me let's connect.</p>
 
         <p class="contact-email">
           <a href="mailto:chinomnsougba@gmail.com">chinomnsougba@gmail.com</a>

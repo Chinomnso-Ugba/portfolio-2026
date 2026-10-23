@@ -1,0 +1,14 @@
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node (if you add tooling later)
+node_modules/
+
+# Logs and secrets
+*.log
+.env
