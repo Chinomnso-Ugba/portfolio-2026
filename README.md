@@ -2,7 +2,7 @@
 
 My personal portfolio site: a short introduction, selected projects, my experience and ways to contact me. It is built with plain HTML, CSS and JavaScript, with no frameworks and no build step.
 
-**Live site:** [portfolio-2026-ten-theta-90.vercel.app](https://portfolio-2026-ten-theta-90.vercel.app/)
+**Live site:** [https://nonso-portfolio-2026.vercel.app/]
 
 ![Home page in light mode](screenshots/home-light.webp)
 
