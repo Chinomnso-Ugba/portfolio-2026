@@ -1303,3 +1303,361 @@ a {
     display: none;
   }
 }
+
+/* ==========================================================
+   Project previews that link to case studies, with tilt
+   ========================================================== */
+a.shot {
+  color: inherit;
+  text-decoration: none;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+}
+
+a.shot:focus-visible {
+  outline-offset: 4px;
+}
+
+/* ==========================================================
+   Command menu
+   ========================================================== */
+.cmd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 1.85rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font: 500 0.875rem var(--font);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cmd-btn:hover {
+  border-color: var(--ink);
+}
+
+.cmd-btn-text,
+.cmd-btn-kbd {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .cmd-btn-text,
+  .cmd-btn-kbd {
+    display: inline;
+  }
+}
+
+kbd {
+  padding: 0.05em 0.45em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: 500 0.75rem var(--mono);
+  color: var(--muted);
+}
+
+.cmd {
+  width: min(36rem, calc(100% - 2rem));
+  margin: 12vh auto auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.cmd::backdrop {
+  background: rgba(10, 10, 12, 0.5);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.cmd-box {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55);
+}
+
+.cmd-input {
+  width: 100%;
+  padding: 1.15rem 1.4rem;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: 500 1.05rem var(--font);
+}
+
+.cmd-input:focus-visible {
+  outline: none;
+}
+
+.cmd-list {
+  max-height: min(22rem, 52vh);
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.cmd-group {
+  padding: 0.75rem 0.9rem 0.3rem;
+  color: var(--muted);
+  font: 500 0.75rem var(--mono);
+}
+
+.cmd-item {
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cmd-item.is-active {
+  background: var(--paper-2);
+}
+
+.cmd-empty {
+  padding: 1rem 0.9rem;
+  color: var(--muted);
+}
+
+.cmd-hint {
+  padding: 0.7rem 1.4rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  z-index: 200;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transform: translateX(-50%);
+  animation: fade-up 0.35s ease-out both;
+}
+
+/* ==========================================================
+   Case study pages
+   ========================================================== */
+.case-hero {
+  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.case-back {
+  display: inline-block;
+  margin-bottom: 1.75rem;
+  font-weight: 600;
+  text-underline-offset: 0.25em;
+}
+
+.case-back:hover {
+  color: var(--accent);
+}
+
+.case-title {
+  font-size: clamp(3rem, 9vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.case-tagline {
+  max-width: 36rem;
+  margin-top: 1.25rem;
+  font-size: var(--text-intro);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.case-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.case-meta dt {
+  color: var(--muted);
+  font: 500 0.8125rem var(--mono);
+}
+
+.case-meta dd {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.case-stage {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.case-section {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.case-section h2 {
+  font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.case-body {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 40rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+.case-body p {
+  color: var(--muted);
+}
+
+.case-body code {
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  background: var(--paper-2);
+  font: 0.9em var(--mono);
+}
+
+.case-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.case-list li {
+  position: relative;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.case-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.7em;
+  left: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.case-cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.case-card {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.case-card h3 {
+  font-size: 1.2rem;
+  font-variation-settings: "wdth" 100;
+  letter-spacing: -0.02em;
+}
+
+.case-card p {
+  color: var(--muted);
+}
+
+.case-nav {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+.case-nav a {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.case-nav a:hover {
+  background: var(--paper-2);
+}
+
+.case-nav span {
+  color: var(--muted);
+  font: 500 0.8125rem var(--mono);
+}
+
+.case-nav strong {
+  font-size: 1.75rem;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: -0.03em;
+}
+
+.page-footer {
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.page-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+@media (min-width: 56rem) {
+  .case-section .wrap {
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    gap: 4rem;
+  }
+
+  .case-section h2 {
+    margin-bottom: 0;
+  }
+
+  .case-cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+  }
+
+  .case-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.shot {
+    transform: none;
+    transition: none;
+  }
+
+  .toast {
+    animation: none;
+  }
+}

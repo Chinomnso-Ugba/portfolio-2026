@@ -73,6 +73,7 @@ const copyStatus = document.querySelector(".copy-status");
 let copyTimer;
 
 function showStatus(message) {
+  if (!copyStatus) return;
   copyStatus.textContent = message;
   clearTimeout(copyTimer);
   copyTimer = setTimeout(() => {
@@ -80,7 +81,7 @@ function showStatus(message) {
   }, 2500);
 }
 
-copyButton.addEventListener("click", async () => {
+if (copyButton) copyButton.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(copyButton.dataset.copy);
     showStatus("Email copied");
@@ -90,7 +91,8 @@ copyButton.addEventListener("click", async () => {
 });
 
 // Footer year
-document.querySelector("#year").textContent = new Date().getFullYear();
+const yearEl = document.querySelector("#year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Scroll reveal: elements with data-reveal fade in as they enter the screen
 const revealItems = document.querySelectorAll("[data-reveal]");
@@ -127,4 +129,207 @@ if (hero && !reduceMotion) {
       frame = null;
     });
   });
+}
+
+// Tilt: project previews lean slightly towards the pointer (mouse devices only)
+const canTilt = window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion;
+
+if (canTilt) {
+  document.querySelectorAll(".project .shot").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const box = card.getBoundingClientRect();
+      const x = (event.clientX - box.left) / box.width - 0.5;
+      const y = (event.clientY - box.top) / box.height - 0.5;
+      card.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+      card.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+    });
+  });
+}
+
+// Small message at the bottom of the screen
+function toast(message) {
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.setAttribute("role", "status");
+  el.textContent = message;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2200);
+}
+
+// Command menu: Ctrl or Cmd + K, or the Search button
+const cmdDialog = document.querySelector("#command-menu");
+const cmdButton = document.querySelector(".cmd-btn");
+
+if (cmdDialog && typeof cmdDialog.showModal === "function") {
+  const cmdInput = cmdDialog.querySelector(".cmd-input");
+  const cmdList = cmdDialog.querySelector(".cmd-list");
+  const root = document.body.dataset.root || "";
+  const home = root ? root + "index.html" : "";
+
+  const go = (url) => () => {
+    window.location.href = url;
+  };
+  const openTab = (url) => () => {
+    window.open(url, "_blank", "noopener");
+  };
+  const EMAIL = "chinomnsougba@gmail.com";
+
+  const commands = [
+    { group: "Go to", label: "Work", run: go(home + "#work") },
+    { group: "Go to", label: "Experience", run: go(home + "#experience") },
+    { group: "Go to", label: "About", run: go(home + "#about") },
+    { group: "Go to", label: "Now", run: go(home + "#now") },
+    { group: "Go to", label: "Contact", run: go(home + "#contact") },
+    { group: "Case studies", label: "PowerPlanner", keys: "electricity power", run: go(root + "projects/powerplanner.html") },
+    { group: "Case studies", label: "Weather App", keys: "weather api", run: go(root + "projects/weather-app.html") },
+    { group: "Case studies", label: "KeyFlow", keys: "typing speed", run: go(root + "projects/keyflow.html") },
+    { group: "Live sites", label: "Open PowerPlanner", run: openTab("https://power-manager-one.vercel.app/") },
+    { group: "Live sites", label: "Open Weather App", run: openTab("https://chinomnso-ugba.github.io/Weather-App/") },
+    { group: "Live sites", label: "Open KeyFlow", run: openTab("https://chinomnso-ugba.github.io/Typing-Speed-App/") },
+    { group: "Links", label: "GitHub", run: openTab("https://github.com/Chinomnso-Ugba") },
+    { group: "Links", label: "LinkedIn", run: openTab("https://www.linkedin.com/in/chinomnso-ugba-b372222a1/") },
+    { group: "Links", label: "X", keys: "twitter", run: openTab("https://x.com/nonsougba") },
+    {
+      group: "Actions",
+      label: "Toggle dark mode",
+      keys: "theme light",
+      run: () => themeToggle.click(),
+    },
+    {
+      group: "Actions",
+      label: "Copy email address",
+      keys: "contact",
+      run: async () => {
+        try {
+          await navigator.clipboard.writeText(EMAIL);
+          toast("Email copied");
+        } catch (error) {
+          toast("Couldn't copy. Email: " + EMAIL);
+        }
+      },
+    },
+    { group: "Actions", label: "Send an email", keys: "mailto contact", run: go("mailto:" + EMAIL) },
+    {
+      group: "Actions",
+      label: "Download CV",
+      keys: "resume pdf",
+      run: () => {
+        const link = document.createElement("a");
+        link.href = root + "assets/Chinomnso-Ugba-CV.pdf";
+        link.download = "";
+        link.click();
+      },
+    },
+  ];
+
+  let visible = commands;
+  let active = 0;
+
+  function renderCommands() {
+    const query = cmdInput.value.trim().toLowerCase();
+    visible = commands.filter((c) => (c.label + " " + c.group + " " + (c.keys || "")).toLowerCase().includes(query));
+    active = Math.min(active, Math.max(visible.length - 1, 0));
+    cmdList.innerHTML = "";
+
+    if (!visible.length) {
+      const empty = document.createElement("li");
+      empty.className = "cmd-empty";
+      empty.textContent = "No matches";
+      cmdList.appendChild(empty);
+      cmdInput.removeAttribute("aria-activedescendant");
+      return;
+    }
+
+    let lastGroup = "";
+    visible.forEach((command, index) => {
+      if (command.group !== lastGroup) {
+        const heading = document.createElement("li");
+        heading.className = "cmd-group";
+        heading.setAttribute("role", "presentation");
+        heading.textContent = command.group;
+        cmdList.appendChild(heading);
+        lastGroup = command.group;
+      }
+      const item = document.createElement("li");
+      item.className = "cmd-item";
+      item.id = "cmd-option-" + index;
+      item.setAttribute("role", "option");
+      item.textContent = command.label;
+      item.addEventListener("click", () => runCommand(index));
+      item.addEventListener("pointermove", () => setActive(index, false));
+      cmdList.appendChild(item);
+    });
+    setActive(active, false);
+  }
+
+  function setActive(index, scroll) {
+    active = index;
+    cmdList.querySelectorAll(".cmd-item").forEach((item, i) => {
+      const on = i === active;
+      item.classList.toggle("is-active", on);
+      item.setAttribute("aria-selected", String(on));
+      if (on) {
+        cmdInput.setAttribute("aria-activedescendant", item.id);
+        if (scroll) item.scrollIntoView({ block: "nearest" });
+      }
+    });
+  }
+
+  function runCommand(index) {
+    const command = visible[index];
+    if (!command) return;
+    cmdDialog.close();
+    command.run();
+  }
+
+  function openMenu() {
+    if (cmdDialog.open) return;
+    cmdInput.value = "";
+    active = 0;
+    cmdDialog.showModal();
+    renderCommands();
+    cmdInput.focus();
+  }
+
+  cmdInput.addEventListener("input", () => {
+    active = 0;
+    renderCommands();
+  });
+
+  cmdInput.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (visible.length) setActive((active + 1) % visible.length, true);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (visible.length) setActive((active - 1 + visible.length) % visible.length, true);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      runCommand(active);
+    }
+  });
+
+  // A click on the dimmed area outside the box closes the menu
+  cmdDialog.addEventListener("click", (event) => {
+    if (event.target === cmdDialog) cmdDialog.close();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      if (cmdDialog.open) cmdDialog.close();
+      else openMenu();
+    }
+  });
+
+  if (cmdButton) cmdButton.addEventListener("click", openMenu);
+  if (/Mac|iPhone|iPad/.test(navigator.platform)) {
+    document.querySelectorAll(".cmd-btn-kbd").forEach((kbd) => (kbd.textContent = "\u2318 K"));
+  }
+} else if (cmdButton) {
+  cmdButton.hidden = true;
 }

@@ -22,7 +22,6 @@ My personal portfolio site: a short introduction, selected projects, my experien
 - **Selected work:** three projects, each with desktop and mobile screenshots, a short description and links to the live site and source code.
 - **Experience:** front-end work, mentoring and teaching, newest first.
 - **About:** a short introduction, plus what I am comfortable with and still learning.
-- **Now:** what I'm building and learning this month, and what I've shipped, with a last-updated date.
 - **Contact:** email (with a copy button), CV download, and GitHub, LinkedIn and X links.
 
 ## Design
@@ -39,7 +38,7 @@ My personal portfolio site: a short introduction, selected projects, my experien
 
 - HTML
 - CSS (custom properties, Grid, Flexbox)
-- JavaScript (mobile menu, scroll header, theme switch, copy-to-clipboard)
+- JavaScript (mobile menu, scroll header, theme switch, scroll reveal, command menu, copy-to-clipboard)
 - Google Fonts
 - [Devicon](https://devicon.dev) logos (MIT licence)
 
@@ -52,6 +51,7 @@ My personal portfolio site: a short introduction, selected projects, my experien
 │   └── style.css
 ├── js/
 │   └── main.js
+├── projects/           case-study pages
 ├── assets/
 │   ├── favicon.svg
 │   ├── icons/          skill logos (Devicon, MIT licence)

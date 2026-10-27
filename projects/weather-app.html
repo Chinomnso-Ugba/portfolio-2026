@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather App case study | Chinomnso Ugba</title>
+  <meta name="description" content="A small weather app that searches any city and shows current conditions, built to practise working with a third-party API.">
+  <meta name="theme-color" content="#d3d3d9">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      var saved;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/main.js" defer></script>
+</head>
+<body data-root="../">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <!-- Placeholder logo: replace the text with your real logo later -->
+      <a class="logo" href="../index.html" aria-label="Nonso, back to top">Nonso<span class="logo-dot" aria-hidden="true"></span></a>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#experience">Experience</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#now">Now</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-cv" href="../assets/Chinomnso-Ugba-CV.pdf" download>Download CV</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <button class="cmd-btn" type="button" aria-label="Open command menu" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+          <span class="cmd-btn-text">Search</span>
+          <kbd class="cmd-btn-kbd">Ctrl K</kbd>
+        </button>
+        <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+          <span class="theme-knob" aria-hidden="true">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </span>
+        </button>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="wrap">
+        <a class="case-back" href="../index.html#work">Back to work</a>
+        <h1 class="case-title">Weather App</h1>
+        <p class="case-tagline">A small weather app that searches any city and shows current conditions, built to practise working with a third-party API.</p>
+
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd>Design and development</dd></div>
+          <div><dt>Built</dt><dd>July 2025</dd></div>
+          <div><dt>Stack</dt><dd>HTML, CSS, JavaScript, OpenWeatherMap API</dd></div>
+        </dl>
+
+        <div class="case-links">
+          <a class="btn btn-solid" href="https://chinomnso-ugba.github.io/Weather-App/" target="_blank" rel="noopener">Live site<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-outline" href="https://github.com/Chinomnso-Ugba/Weather-App" target="_blank" rel="noopener">Source code<span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+
+        <div class="shot case-stage" data-reveal>
+          <div class="browser">
+            <img src="../assets/weather.webp" alt="Weather App on desktop showing the weather in Lagos with a temperature, conditions, humidity and recent searches" width="1315" height="727" onerror="this.remove()">
+          </div>
+          <div class="phone">
+            <img src="../assets/weather-mobile.webp" alt="Weather App on a phone showing the weather in Lagos" width="640" height="1391" onerror="this.remove()">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" data-reveal>
+      <div class="wrap">
+        <h2>Overview</h2>
+        <div class="case-body"><p>This was my first project built around a real API. The goal was to take live data from an outside service and turn it into an interface that is clear at a glance.</p><p>It is a single HTML file with plain JavaScript, with no libraries.</p></div>
+      </div>
+    </section>
+    <section class="case-section" data-reveal>
+      <div class="wrap">
+        <h2>What it does</h2>
+        <div class="case-body"><ul class="case-list"><li>Search for a city with the button or the Enter key.</li><li>Show the temperature, a short description, an icon and the humidity.</li><li>Switch between °C and °F.</li><li>Show a loading state while waiting and an error message if the city is not found.</li><li>Remember the five most recent searches as buttons that run the search again.</li><li>Change the card's look for clear, cloudy, rainy, snowy and stormy weather, and remember light or dark theme.</li></ul></div>
+      </div>
+    </section>
+    <section class="case-section" data-reveal>
+      <div class="wrap">
+        <h2>How it works</h2>
+        <div class="case-body"><p>A search sends the city name and the chosen units to the OpenWeatherMap current-weather endpoint. The response is turned into text for the page, and the weather type picks a CSS class for the card.</p><p>Recent searches are kept in an array: each name is tidied and capitalised, any earlier copy is removed, the newest goes first, the list is cut to five, and it is saved to <code>localStorage</code>.</p></div>
+      </div>
+    </section>
+    <section class="case-section" data-reveal>
+      <div class="wrap">
+        <h2>The tricky parts</h2>
+        <div class="case-cards"><div class="case-card"><h3>Three states, one card</h3><p>The card is either loading, showing a result or showing an error. Switching them with classes meant the page never showed a half-updated mix.</p></div><div class="case-card"><h3>Changing units</h3><p>Switching between °C and °F asks the API again for the same city, so the numbers always come from the source instead of being converted by hand.</p></div><div class="case-card"><h3>A tidy history</h3><p>Recent searches need cleaning, so "lagos" and "Lagos" are one entry, and the list stays short and saved between visits.</p></div></div>
+      </div>
+    </section>
+    <section class="case-section" data-reveal>
+      <div class="wrap">
+        <h2>What I would improve</h2>
+        <div class="case-body"><ul class="case-list"><li>Send requests through a small serverless function so the API key never reaches the browser.</li><li>Encode the city name in the request, and show different messages for "city not found", network errors and rate limits instead of one generic message.</li><li>Add a five-day forecast and a "use my location" option.</li><li>Announce results and errors to screen readers, and label the search field properly.</li><li>Show the temperature, wind and rain together in a small chart.</li></ul></div>
+      </div>
+    </section>
+
+    <nav class="wrap case-nav" aria-label="More case studies" data-reveal>
+      <a href="powerplanner.html"><span>Previous</span><strong>PowerPlanner</strong></a>
+      <a href="keyflow.html"><span>Next</span><strong>KeyFlow</strong></a>
+    </nav>
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap">
+      <p>&copy; <span id="year">2026</span> Chinomnso Ugba</p>
+      <a href="../index.html#contact">Get in touch</a>
+    </div>
+  </footer>
+
+  <!-- Command menu: press Ctrl or Cmd + K -->
+  <dialog class="cmd" id="command-menu" aria-label="Command menu">
+    <div class="cmd-box">
+      <input class="cmd-input" type="text" placeholder="Search pages, projects and actions" aria-label="Search commands" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="cmd-list">
+      <ul class="cmd-list" id="cmd-list" role="listbox" aria-label="Commands"></ul>
+      <p class="cmd-hint"><kbd>&uarr;</kbd> <kbd>&darr;</kbd> to move, <kbd>Enter</kbd> to open, <kbd>Esc</kbd> to close</p>
+    </div>
+  </dialog>
+</body>
+</html>
